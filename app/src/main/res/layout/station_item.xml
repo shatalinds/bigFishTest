@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite">
+
+    <TextView
+        android:id="@+id/tvId"
+        style="@style/ItemStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tvName"
+        style="@style/ItemStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvId"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tvBoxId"
+        style="@style/ItemStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvName"/>
+
+    <TextView
+        android:id="@+id/tvBillRate"
+        style="@style/ItemStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvBoxId"/>
+
+    <TextView
+        android:id="@+id/tvSerialNumber"
+        style="@style/ItemStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvBillRate"/>
+
+    <TextView
+        android:id="@+id/tvConnectors"
+        style="@style/ItemStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvSerialNumber"/>
+
+    <TextView
+        android:id="@+id/tvCoordinates"
+        style="@style/ItemStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvConnectors"/>
+
+    <TextView
+        android:id="@+id/tvFacilities"
+        style="@style/ItemStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvCoordinates"/>
+
+    <TextView
+        android:id="@+id/tvMaxPower"
+        style="@style/ItemStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvFacilities"/>
+
+    <TextView
+        android:id="@+id/tvRegStatus"
+        style="@style/ItemStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvMaxPower"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@id/tvRegStatus"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorGray"/>
+</RelativeLayout>

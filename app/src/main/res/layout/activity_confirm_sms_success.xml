@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    tools:context=".activity.ConfirmSmsSuccessActivity">
+
+    <TextView
+        android:id="@+id/tvThanks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="246dp"
+        android:text="@string/thanks"
+        android:textStyle="bold"
+        android:textColor="@color/colorGreen"
+        android:textSize="24sp"/>
+
+    <TextView
+        android:id="@+id/tvSuccessRequestLinkProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvThanks"
+        android:layout_marginLeft="51dp"
+        android:layout_marginRight="51dp"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:layout_marginTop="19dp"
+        android:text="@string/success_confirm_phone"
+        android:textColor="@color/colorGray"
+        android:textSize="16sp"/>
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/rounded_shape_green"
+        android:text="@string/next"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"/>
+
+</RelativeLayout>
