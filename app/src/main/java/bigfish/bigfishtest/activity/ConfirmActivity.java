@@ -58,8 +58,7 @@ public class ConfirmActivity extends CustomActivity {
                 requestBody.put("phone", mTinyDB.getString(Storage.USER_PHONE));
                 requestBody.put("code", code);
 
-                mApiService
-                        .registration_confirm(requestBody)
+                mApiService.registration_confirm(requestBody)
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeOn(Schedulers.newThread())
                         .filter(registrationModel -> registrationModel != null)
@@ -74,7 +73,6 @@ public class ConfirmActivity extends CustomActivity {
                             Toast.makeText(mCtx, getString(R.string.code_verification_fail), Toast.LENGTH_SHORT).show();
                             if (++idx >= 2)
                                 tvResendSMS.setVisibility(View.VISIBLE);
-                            Timber.e(throwable);
                         });
                 return true;
             }

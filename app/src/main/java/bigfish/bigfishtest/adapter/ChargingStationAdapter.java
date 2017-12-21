@@ -164,7 +164,7 @@ public class ChargingStationAdapter extends RecyclerView.Adapter<ChargingStation
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT);
             lp.setMargins(10, 10, 10, 10);
-            int maxLengthofEditText = 2;
+            int maxLengthofEditText = 3;
             input.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLengthofEditText)});
             input.setInputType(InputType.TYPE_CLASS_NUMBER);
             input.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
@@ -175,7 +175,7 @@ public class ChargingStationAdapter extends RecyclerView.Adapter<ChargingStation
             alertDialog.setPositiveButton(mCtx.getString(R.string.ok), (DialogInterface dialog, int which) -> {
                 final int mHours = Integer.valueOf(input.getText().toString());
 
-                if (mHours > 0) {
+                if (mHours > 0 && mHours <= 480) {
                     param.put("expirationTime", String.valueOf(mHours));
                     mAuthService.charge_price_anticipate(param)
                             .observeOn(AndroidSchedulers.mainThread())
@@ -188,7 +188,9 @@ public class ChargingStationAdapter extends RecyclerView.Adapter<ChargingStation
                                 } else Toast.makeText(mCtx, (String) chargePriceAnticipateModel.getError(), Toast.LENGTH_LONG).show();
                             }, throwable -> Timber.e(throwable));
                 } else {
-                    Toast.makeText(mCtx, mCtx.getString(R.string.fail), Toast.LENGTH_SHORT).show();
+                    if (mHours == 0)
+                        Toast.makeText(mCtx, mCtx.getString(R.string.fail), Toast.LENGTH_SHORT).show();
+                    else Toast.makeText(mCtx, mCtx.getString(R.string.big_fail), Toast.LENGTH_SHORT).show();
                 }
             });
 

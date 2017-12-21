@@ -2,6 +2,7 @@ package bigfish.bigfishtest.activity;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import bigfish.bigfishtest.R;
@@ -31,9 +32,14 @@ public class SplashActivity extends CustomActivity {
             @Override
             public void onFinish() {
                 tvCounter.setText("0");
-                if (!mTinyDB.getBoolean(Storage.USER_PHONE_CONFIRM))
-                    startActivity(RegistrationActivity.class);
-                else startActivity(MainActivity.class);
+
+                String phone = mTinyDB.getString(Storage.USER_PHONE);
+                String code = mTinyDB.getString(Storage.USER_PIN);
+                Boolean confirm = mTinyDB.getBoolean(Storage.USER_PHONE_CONFIRM);
+
+                if (confirm && !TextUtils.isEmpty(phone) && !TextUtils.isEmpty(code))
+                    startActivity(MainActivity.class);
+                else startActivity(StartUpActivity.class);
             }
         }.start();
     }

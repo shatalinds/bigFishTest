@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import javax.inject.Inject;
@@ -59,19 +60,22 @@ public class MainActivity extends CustomActivity implements Handler.Callback {
     @Override
     protected void onResume() {
         super.onResume();
-        mTokenService.getToken(Storage.OAUTH_GRANT_TYPE,
-                        Storage.OAUTH_CLIENT_ID,
-                        Storage.OAUTH_CLIENT_SECRET,
-                        mTinyDB.getString(Storage.USER_PHONE),
-                        mTinyDB.getString(Storage.USER_PIN))
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.newThread())
-                .filter(oAuthToken -> oAuthToken != null)
-                .subscribe(oAuthToken -> {
-                    mOAuthToken = oAuthToken;
-                    mTinyDB.putString(Storage.OAUTH_KEY, oAuthToken.getAccessToken());
-                    mHandler.obtainMessage(GET_CHARGE_SATATIONS).sendToTarget();
-                }, throwable -> Timber.e(throwable));
+        String authKey = mTinyDB.getString(Storage.OAUTH_KEY);
+        if (TextUtils.isEmpty(authKey)) {
+            mTokenService.getToken(Storage.OAUTH_GRANT_TYPE,
+                    Storage.OAUTH_CLIENT_ID,
+                    Storage.OAUTH_CLIENT_SECRET,
+                    mTinyDB.getString(Storage.USER_PHONE),
+                    mTinyDB.getString(Storage.USER_PIN))
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.newThread())
+                    .filter(oAuthToken -> oAuthToken != null)
+                    .subscribe(oAuthToken -> {
+                        mOAuthToken = oAuthToken;
+                        mTinyDB.putString(Storage.OAUTH_KEY, oAuthToken.getAccessToken());
+                        mHandler.obtainMessage(GET_CHARGE_SATATIONS).sendToTarget();
+                    }, throwable -> Timber.e(throwable));
+        } else mHandler.obtainMessage(GET_CHARGE_SATATIONS).sendToTarget();
     }
 
     private ChargeStationsModel mChargeStationsModel;
@@ -86,7 +90,6 @@ public class MainActivity extends CustomActivity implements Handler.Callback {
                         mChargeStationsModel = chargeStationsModel;
                         recyclerView.setAdapter(new ChargingStationAdapter(this, mChargeStationsModel));
                     }, throwable -> Timber.e(throwable));
-
         }
         return false;
     }

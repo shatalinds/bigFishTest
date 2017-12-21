@@ -34,7 +34,7 @@
         android:inputType="phone"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:textColor="@color/colorGray"
+        android:textColor="@color/colorBlack"
         android:textSize="18sp"
         android:typeface="monospace"
         app:keep_hint="true"

@@ -6,6 +6,7 @@ import bigfish.bigfishtest.activity.ConfirmActivity;
 import bigfish.bigfishtest.activity.CustomActivity;
 import bigfish.bigfishtest.activity.MainActivity;
 import bigfish.bigfishtest.activity.RegistrationActivity;
+import bigfish.bigfishtest.activity.StartUpActivity;
 import bigfish.bigfishtest.adapter.ChargingStationAdapter;
 import dagger.Component;
 
@@ -23,6 +24,7 @@ public interface AppComponent {
     void inject(RegistrationActivity activity);
     void inject(ConfirmActivity activity);
     void inject(MainActivity activity);
+    void inject(StartUpActivity activity);
 
     void inject(ChargingStationAdapter adapter);
 }

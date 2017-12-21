@@ -2,20 +2,27 @@
     <string name="app_name">BigFishTest</string>
     <string name="three">3</string>
     <string name="enter_phone_number">Введите номер телефона</string>
+    <string name="enter_code">Введите код подтверждения</string>
     <string name="phone_hint">1234567890</string>
     <string name="get_code">Получить код</string>
     <string name="info">Для использования приложения его необходимо привязать к номеру вашего телефона</string>
     <string name="enter_code_sms">Введите код из SMS</string>
+    <string name="authorization">Авторизация</string>
+
+    <string name="fail_autorization">Вы ввели не верные данные. Авторизация отменена.</string>
     <string name="resend_sms">Отправить код повторно</string>
     <string name="code_verification_fail">Код подтверждения номера введен неверно</string>
     <string name="thanks">Спасибо!</string>
     <string name="success_confirm_phone">Ваш номер телефона\nуспешно зарегистрирован в системе!</string>
     <string name="next">Далее</string>
     <string name="request_time">Время зарядки</string>
-    <string name="request_charge">Введите длительность зарядки в часах</string>
+    <string name="request_charge">Введите длительность зарядки в минутах</string>
     <string name="ok">Ок</string>
     <string name="cancel">Отмена</string>
     <string name="fail">Введите длительность больше нуля!</string>
+    <string name="big_fail">Разрешена длительность меньше 8 часов!</string>
     <string name="price_complite">Цена посчитана:</string>
+
+    <string name="registration">Регистрация</string>
 
 </resources>
