@@ -3,6 +3,8 @@ package bigfish.bigfishtest.activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,38 +48,35 @@ public class ConfirmActivity extends CustomActivity {
         setContentView(R.layout.activity_confirm);
         slideAnimation(false);
 
-        metCodeSMS.setOnKeyListener((View v, int keyCode, KeyEvent event) -> {
-            if (event.getAction() != KeyEvent.ACTION_DOWN)
-                return true;
+        metCodeSMS.setOnEditorActionListener((TextView v, int actionId, KeyEvent event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEND) {
+                final String code = metCodeSMS.getRawText();
+                if (code.length() == 4) {
+                    Map<String, String> requestBody = new HashMap<>();
+                    requestBody.put("phone", mTinyDB.getString(Storage.USER_PHONE));
+                    requestBody.put("code", code);
 
-            char pressedKey = (char) event.getUnicodeChar();
-            final String code = metCodeSMS.getRawText() + pressedKey;
-            if (code.length() == 4) {
-
-                Map<String, String> requestBody = new HashMap<>();
-                requestBody.put("phone", mTinyDB.getString(Storage.USER_PHONE));
-                requestBody.put("code", code);
-
-                mApiService.registration_confirm(requestBody)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeOn(Schedulers.newThread())
-                        .filter(registrationModel -> registrationModel != null)
-                        .subscribe(responseBody -> {
-                            if (responseBody.getStatusCode() == 200) {
-                                mTinyDB.putBoolean(Storage.USER_PHONE_CONFIRM, true);
-                                mTinyDB.putString(Storage.USER_PIN, code);
-                                startActivity(ConfirmSmsSuccessActivity.class);
-                            } else Toast.makeText(mCtx, responseBody.getError().toString(), Toast.LENGTH_SHORT).show();
-                        }, throwable -> {
-                            metCodeSMS.setText("");
-                            Toast.makeText(mCtx, getString(R.string.code_verification_fail), Toast.LENGTH_SHORT).show();
-                            if (++idx >= 2)
-                                tvResendSMS.setVisibility(View.VISIBLE);
-                        });
-                return true;
+                    mApiService.registration_confirm(requestBody)
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribeOn(Schedulers.newThread())
+                            .filter(registrationModel -> registrationModel != null)
+                            .subscribe(responseBody -> {
+                                if (responseBody.getStatusCode() == 200) {
+                                    mTinyDB.putBoolean(Storage.USER_PHONE_CONFIRM, true);
+                                    mTinyDB.putString(Storage.USER_PIN, code);
+                                    startActivity(ConfirmSmsSuccessActivity.class);
+                                } else Toast.makeText(mCtx, responseBody.getError().toString(), Toast.LENGTH_SHORT).show();
+                            }, throwable -> {
+                                metCodeSMS.setText("");
+                                Toast.makeText(mCtx, getString(R.string.code_verification_fail), Toast.LENGTH_SHORT).show();
+                                if (++idx >= 2)
+                                    tvResendSMS.setVisibility(View.VISIBLE);
+                            });
+                }
+                return false;
             }
-            return false;
-        });
+            return true;
+        } );
     }
 
     @Override
